@@ -67,6 +67,8 @@ De vier hoofdrollen (in te vullen wie wat doet):
 - Team-groep (WhatsApp/Teams) is het centrale kanaal.
 - Minimaal 1 keer per week een gezamenlijk overlegmoment.
 - Belangrijke beslissingen en resultaten worden in de gedeelde documenten (documenten/opslag) vastgelegd.
+- **Planning (Gantt):** www.onlinegantt.com
+- **Taakbeheer (wie doet wat):** [Trello bord Challenge 14](https://trello.com/b/DFU5kkBx/challenge-14)
 
 ## 6. Besluitvorming
 
