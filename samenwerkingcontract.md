@@ -119,6 +119,8 @@ Datum: ____________________
 
 Handtekening: Len van der Spoel
 
+<img src="https://www.image2url.com/r2/default/images/1790062881335-ceba2dba-6800-4bdc-b97b-a048604a0f5c.jpg" alt="Handtekening" width="25%">
+
 Datum: 22-9-2026
 
 **Rebecca**
