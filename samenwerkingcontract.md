@@ -29,7 +29,7 @@ De vier hoofdrollen (in te vullen wie wat doet):
 |-----|-----------|------|
 | Klantcontact + functionaliteiten | Leidt het klantgesprek en werkt het functioneel overzicht uit | Rebecca Eerlingen |
 | Inventarisatie entiteiten/attributen | Stelt vast welke gegevens in de database moeten | | Chester
-| ERD + datamodel | Tekent het ERD en beheert het datamodel | | 
+| ERD + datamodel | Tekent het ERD en beheert het datamodel | Len van der Spoel | 
 | Expo-presentatie + documentatie + groupsleader| Bereidt de presentatie voor en bundelt de documenten | jasper van kalsbeek|
 
 (Invullen na eerste teamoverleg.)
@@ -111,15 +111,15 @@ Datum: 21-09-2026
 
 **Chester**
 
-Handtekening: Chester Jacobs 22-09-2026____________________
+Handtekening: Chester Jacobs 
 
-Datum: ____________________
+Datum: 22-09-2026
 
 **Len**
 
-Handtekening: ____________________
+Handtekening: Len van der Spoel
 
-Datum: ____________________
+Datum: 22-09-2026
 
 **Rebecca**
 
