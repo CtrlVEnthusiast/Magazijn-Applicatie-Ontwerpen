@@ -113,10 +113,8 @@ Datum: 21-09-2026
 
 **Chester**
 
-Handtekening: ____________________
 Handtekening: Chester Jacobs 
 
-Datum: ____________________
 Datum: 22-09-2026
 
 **Len**
