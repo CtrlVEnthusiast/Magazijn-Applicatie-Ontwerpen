@@ -28,7 +28,7 @@ De vier hoofdrollen (in te vullen wie wat doet):
 | Rol | Hoofdtaak | Naam |
 |-----|-----------|------|
 | Klantcontact + functionaliteiten | Leidt het klantgesprek en werkt het functioneel overzicht uit | Rebecca Eerlingen |
-| Inventarisatie entiteiten/attributen | Stelt vast welke gegevens in de database moeten | |
+| Inventarisatie entiteiten/attributen | Stelt vast welke gegevens in de database moeten | Len van der Spoel |
 | ERD + datamodel | Tekent het ERD en beheert het datamodel | |
 | Expo-presentatie + documentatie + groupsleader| Bereidt de presentatie voor en bundelt de documenten | jasper van kalsbeek|
 
@@ -117,10 +117,9 @@ Datum: ____________________
 
 **Len**
 
-Handtekening: ____________________
+Handtekening: Len van der Spoel
 
-Datum: ____________________
-
+Datum: 22-9-2026
 **Rebecca**
 
 Handtekening: ____________________
