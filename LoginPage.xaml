@@ -1,0 +1,39 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MagazijnApp.LoginPage"
+             BackgroundColor="{AppThemeBinding Light=#F8F9FA, Dark=#121212}">
+
+    <VerticalStackLayout Spacing="18" Padding="30" VerticalOptions="Center">
+
+        <!-- header -->
+        <Image Source="dotnet_bot.png" HeightRequest="80" HorizontalOptions="Center"/>
+        <Label Text="Yippee, hallo :3" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="Log in om verder te gaan" FontSize="14" TextColor="Gray" HorizontalOptions="Center" Margin="0,-10,0,10"/>
+
+        <!-- Input email en naam -->
+        <Border StrokeShape="RoundRectangle 10" Padding="12,2" StrokeThickness="1" Stroke="#E0E0E0">
+            <Entry x:Name="Email" Placeholder="Email" Keyboard="Email" PlaceholderColor="Gray"/>
+        </Border>
+
+        <Border StrokeShape="RoundRectangle 10" Padding="12,2" StrokeThickness="1" Stroke="#E0E0E0">
+            <Entry x:Name="Wachtwoord" Placeholder="wachtwoord" IsPassword="True" PlaceholderColor="Gray"/>
+        </Border>
+
+        <!-- Login knop -->
+        <Button Text="Log In" 
+                Clicked="OnLoginClicked" 
+                CornerRadius="10" 
+                HeightRequest="50" 
+                BackgroundColor="#512BD4" 
+                TextColor="White" 
+                FontAttributes="Bold" 
+                Margin="0,10,0,0"/>
+
+       
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+            <Label Text="Heb je nog geen account?" TextColor="Gray" VerticalOptions="Center"/>
+            <Button Text="Account aanmaken" TextColor="#512BD4" BackgroundColor="Transparent" Padding="0" Clicked="OnSignUpClicked"/>
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentPage>
