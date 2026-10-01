@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagazijnApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+a76419db615b1cf7097c51db574e6d944df272a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagazijnApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagazijnApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
