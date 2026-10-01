@@ -123,6 +123,6 @@ Datum: 22-09-2026
 
 **Rebecca**
 
-Handtekening: ____________________
+Handtekening: Rebecca Eerlingen
 
-Datum: ____________________
+Datum: 01-10-2026
