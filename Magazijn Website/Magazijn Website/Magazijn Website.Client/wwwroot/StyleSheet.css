@@ -1,0 +1,19 @@
+﻿
+.borrowed {
+    color: red;
+}
+
+.available {
+    color: green;
+}
+
+.item-card {
+    background-color: lightgray;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.item-card:hover {
+    background-color: darkgray;
+}

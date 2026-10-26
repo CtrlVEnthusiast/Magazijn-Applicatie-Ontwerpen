@@ -1,0 +1,67 @@
+﻿@page "/magazijn"
+@rendermode InteractiveWebAssembly
+@using Magazijn_Website.Client.Models
+@using System.Collections.Generic
+<link rel="stylesheet" href="StyleSheet.css" />
+
+<PageTitle>Magazijn</PageTitle>
+
+<h1>Magazijn</h1>
+<h2>Nieuw item toevoegen</h2>
+<input @bind="newItemName" placeholder="Itemnaam" />
+<input type="number" @bind="newItemId" />
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p class="borrowed">@errorMessage</p>
+}
+<button class="btn btn-primary" @onclick="AddItem">Item toevoegen</button>
+
+
+@foreach (var item in items)
+{   
+    <div class="item-card">
+        <p>ID: @item.Id - Name: @item.Name</p>
+        <p class="@(item.IsBorrowed ? "borrowed" : "available")">Status: @(item.IsBorrowed ? "Uitgeleend" : "Beschikbaar")</p>
+        <button class="btn btn-primary" @onclick="() => ChangeBool(item)">@(item.IsBorrowed ? "Terugbrengen" : "Uitlenen")</button>
+    </div>
+}
+
+@code {
+    private List<Item> items = new List<Item>
+    {
+        new Item { Id = 8055, Name = "Human Child", IsBorrowed = false },
+        new Item { Id = 2017, Name = "Acer Predator 21X", IsBorrowed = false },
+        new Item { Id = 4444, Name = "A stick of Lit Dynamite", IsBorrowed = false },
+        new Item { Id = 69420, Name = "Scott de Weerd", IsBorrowed = false },
+    };
+
+    private void ChangeBool(Item item)
+    {
+        item.IsBorrowed = !item.IsBorrowed;
+    }
+
+    private string newItemName = "";
+    private int newItemId = 0;
+    private string errorMessage = "";
+
+    private void AddItem()
+    {
+        bool idExists = items.Any(i => i.Id == newItemId);
+         if (idExists)
+        {
+            errorMessage = "Dit ID bestaat al! Kies een uniek ID.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(newItemName))
+        {
+            errorMessage = "Vul een geldige naam in.";
+            return;
+        }
+
+        Item newItem = new Item{Id = newItemId, Name = newItemName, IsBorrowed = false};
+        items.Add(newItem);
+        newItemName = "";
+        newItemId = 0;
+    }
+}
