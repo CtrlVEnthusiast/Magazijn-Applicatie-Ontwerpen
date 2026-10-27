@@ -2,6 +2,7 @@ using Magazijn_Website.Client.Pages;
 using Magazijn_Website.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseStaticWebAssets();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
