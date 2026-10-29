@@ -42,6 +42,11 @@
     text-decoration: none;
 }
 
+.overzicht-kaart:hover {
+    background: #eef6ff;
+    border-color: #8fb8e8;
+}
+
 .overzicht-kaart strong {
     display: block;
     font-size: 1.8rem;
@@ -132,7 +137,7 @@
 }
 
 .muted {
-    color: #6b7785;
+    color: #5b6776;
     font-size: 0.85rem;
     font-weight: 400;
 }
@@ -237,6 +242,12 @@
     border-color: #8fb8e8;
 }
 
+.materiaal-optie:focus-visible,
+.overzicht-kaart:focus-visible {
+    outline: 2px solid #1b6ec2;
+    outline-offset: 2px;
+}
+
 .materiaal-optie.geselecteerd {
     background: #eaf3ff;
     border-color: #1b6ec2;
@@ -250,7 +261,7 @@
 
 .materiaal-meta {
     grid-area: meta;
-    color: #6b7785;
+    color: #5b6776;
     font-size: 0.85rem;
 }
 
