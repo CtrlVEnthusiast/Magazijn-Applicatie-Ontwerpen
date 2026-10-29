@@ -1,0 +1,350 @@
+.pagina-kop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.pagina-kop h1 {
+    margin: 0 0 0.25rem;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: #123b6d;
+}
+
+.pagina-kop p {
+    margin: 0;
+    max-width: 65ch;
+    color: #5b6776;
+}
+
+.pagina-acties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.overzicht-kaarten {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.overzicht-kaart {
+    display: block;
+    padding: 1rem;
+    background: #f5f8fc;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.overzicht-kaart strong {
+    display: block;
+    font-size: 1.8rem;
+    line-height: 1.1;
+    color: #123b6d;
+}
+
+.overzicht-kaart span {
+    color: #5b6776;
+    font-size: 0.9rem;
+}
+
+.overzicht-kaart.waarschuwing {
+    background: #fff8e6;
+    border-color: #f0dca8;
+}
+
+.overzicht-kaart.leeg {
+    background: #fdf0f0;
+    border-color: #efc9c9;
+}
+
+.filterbalk {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: end;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+}
+
+.filterbalk label,
+.form-grid label,
+.opmerking-veld {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #25384d;
+}
+
+.tabel-wrapper {
+    overflow-x: auto;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+}
+
+.voorraad-tabel {
+    width: 100%;
+    min-width: 720px;
+    margin: 0;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.voorraad-tabel th,
+.voorraad-tabel td {
+    padding: 0.8rem 0.9rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #e6edf4;
+}
+
+.voorraad-tabel th {
+    background: #f5f8fc;
+    color: #25384d;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.voorraad-tabel tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.voorraad-tabel tbody tr:hover {
+    background: #f8fbfe;
+}
+
+.voorraad-tabel .gekozen-vestiging {
+    background: #eaf3ff;
+    font-weight: 700;
+}
+
+.muted {
+    color: #6b7785;
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.voorraad-badge {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.voorraad-badge.op-voorraad {
+    background: #e7f7ed;
+    color: #146c2e;
+}
+
+.voorraad-badge.laag {
+    background: #fff4d6;
+    color: #8a5a00;
+}
+
+.voorraad-badge.niet-beschikbaar {
+    background: #fde8e8;
+    color: #a61b1b;
+}
+
+.leeg-melding {
+    padding: 2rem;
+    text-align: center;
+    background: #f5f8fc;
+    border: 1px dashed #b9c9db;
+    border-radius: 0.75rem;
+}
+
+.leeg-melding h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.uitleen-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.materiaal-kiezer,
+.aanvraag-formulier,
+.laatste-aanvragen,
+.bevestiging {
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+}
+
+.materiaal-kiezer h2,
+.aanvraag-formulier h2,
+.laatste-aanvragen h2,
+.bevestiging h2 {
+    margin-top: 0;
+    font-size: 1.15rem;
+    color: #123b6d;
+}
+
+.kiezer-filters {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.materiaal-lijst {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 28rem;
+    overflow-y: auto;
+}
+
+.materiaal-optie {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "naam badge"
+        "meta badge";
+    gap: 0.15rem 0.75rem;
+    width: 100%;
+    padding: 0.75rem;
+    text-align: left;
+    background: #f8fbfe;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.6rem;
+    color: inherit;
+    cursor: pointer;
+}
+
+.materiaal-optie:hover,
+.materiaal-optie:focus-visible {
+    background: #eef6ff;
+    border-color: #8fb8e8;
+}
+
+.materiaal-optie.geselecteerd {
+    background: #eaf3ff;
+    border-color: #1b6ec2;
+    box-shadow: inset 0 0 0 1px #1b6ec2;
+}
+
+.materiaal-naam {
+    grid-area: naam;
+    font-weight: 700;
+}
+
+.materiaal-meta {
+    grid-area: meta;
+    color: #6b7785;
+    font-size: 0.85rem;
+}
+
+.materiaal-optie .voorraad-badge {
+    grid-area: badge;
+    align-self: center;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.9rem 1rem;
+    margin-bottom: 0.9rem;
+}
+
+.opmerking-veld {
+    margin-bottom: 1rem;
+}
+
+.gekozen-materiaal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background: #f5f8fc;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.6rem;
+}
+
+.gekozen-materiaal .muted {
+    display: block;
+}
+
+.laatste-aanvragen {
+    margin-top: 1.5rem;
+}
+
+.laatste-aanvragen ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.laatste-aanvragen li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #e6edf4;
+}
+
+.laatste-aanvragen li:last-child {
+    border-bottom: 0;
+}
+
+.aanvraag-soort {
+    margin-left: auto;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: #eaf3ff;
+    color: #123b6d;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.bevestiging-details {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.4rem 1rem;
+    margin: 1rem 0;
+}
+
+.bevestiging-details dt {
+    color: #5b6776;
+}
+
+.bevestiging-details dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .filterbalk,
+    .uitleen-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,17 @@
+<span class="voorraad-badge @Klasse">@Tekst</span>
+
+@code {
+    [Parameter]
+    public int Aantal { get; set; }
+
+    [Parameter]
+    public int Drempel { get; set; } = 2;
+
+    private string Tekst => Aantal <= 0
+        ? "Niet beschikbaar"
+        : Aantal <= Drempel ? "Laag" : "Op voorraad";
+
+    private string Klasse => Aantal <= 0
+        ? "niet-beschikbaar"
+        : Aantal <= Drempel ? "laag" : "op-voorraad";
+}

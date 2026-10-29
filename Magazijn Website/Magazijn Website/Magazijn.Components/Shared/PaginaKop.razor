@@ -1,0 +1,24 @@
+<header class="pagina-kop">
+    <div>
+        <h1>@Titel</h1>
+        @if (!string.IsNullOrWhiteSpace(Ondertitel))
+        {
+            <p>@Ondertitel</p>
+        }
+    </div>
+    @if (ChildContent is not null)
+    {
+        <div class="pagina-acties">@ChildContent</div>
+    }
+</header>
+
+@code {
+    [Parameter, EditorRequired]
+    public string Titel { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Ondertitel { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

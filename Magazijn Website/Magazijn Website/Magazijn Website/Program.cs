@@ -1,3 +1,4 @@
+using Magazijn.Components.Services;
 using Magazijn_Website.Client.Pages;
 using Magazijn_Website.Components;
 
@@ -7,6 +8,7 @@ builder.WebHost.UseStaticWebAssets();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
+builder.Services.AddScoped<MagazijnService>();
 
 var app = builder.Build();
 
@@ -29,6 +31,8 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(Magazijn_Website.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(
+        typeof(Magazijn_Website.Client._Imports).Assembly,
+        typeof(Magazijn.Components.Pages.Voorraad).Assembly);
 
 app.Run();

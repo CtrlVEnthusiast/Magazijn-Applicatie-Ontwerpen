@@ -1,0 +1,145 @@
+@page "/magazijn"
+@rendermode InteractiveWebAssembly
+@inject MagazijnService Service
+
+<PageTitle>Magazijn en voorraad</PageTitle>
+
+<PaginaKop Titel="Magazijn en voorraad"
+           Ondertitel="Bekijk alle materialen, categorieën en de voorraad per vestiging.">
+    <a class="btn btn-primary" href="uitlenen">Materiaal lenen of reserveren</a>
+</PaginaKop>
+
+<div class="overzicht-kaarten">
+    <div class="overzicht-kaart">
+        <strong>@Service.Materialen.Count</strong>
+        <span>materialen</span>
+    </div>
+    <div class="overzicht-kaart">
+        <strong>@Service.Categorieen.Count</strong>
+        <span>categorieën</span>
+    </div>
+    <div class="overzicht-kaart">
+        <strong>@Service.Vestigingen.Count</strong>
+        <span>vestigingen</span>
+    </div>
+    <div class="overzicht-kaart waarschuwing">
+        <strong>@AantalLaag</strong>
+        <span>laag op voorraad</span>
+    </div>
+    <div class="overzicht-kaart leeg">
+        <strong>@AantalNietBeschikbaar</strong>
+        <span>niet beschikbaar</span>
+    </div>
+</div>
+
+<section class="filterbalk" aria-label="Materialen filteren">
+    <label>
+        Zoeken
+        <input class="form-control" type="search" placeholder="Naam of omschrijving..."
+               @bind="zoekterm" @bind:event="oninput" @bind:after="Filter" />
+    </label>
+
+    <label>
+        Categorie
+        <select class="form-select" @bind="categorieId" @bind:after="Filter">
+            <option value="0">Alle categorieën</option>
+            @foreach (var categorie in Service.Categorieen)
+            {
+                <option value="@categorie.Id">@categorie.Naam</option>
+            }
+        </select>
+    </label>
+
+    <label>
+        Beschikbaar in
+        <select class="form-select" @bind="vestigingId" @bind:after="Filter">
+            <option value="0">Alle vestigingen</option>
+            @foreach (var vestiging in Service.Vestigingen)
+            {
+                <option value="@vestiging.Id">@vestiging.Naam</option>
+            }
+        </select>
+    </label>
+
+    <button class="btn btn-outline-secondary" type="button" @onclick="WisFilters">Filters wissen</button>
+</section>
+
+@if (materialen.Count == 0)
+{
+    <div class="leeg-melding">
+        <h2>Geen materialen gevonden</h2>
+        <p>Pas je zoekopdracht of filters aan.</p>
+    </div>
+}
+else
+{
+    <div class="tabel-wrapper">
+        <table class="voorraad-tabel">
+            <thead>
+                <tr>
+                    <th scope="col">Materiaal</th>
+                    <th scope="col">Categorie</th>
+                    @foreach (var vestiging in Service.Vestigingen)
+                    {
+                        <th scope="col" class="@(vestigingId == vestiging.Id ? "gekozen-vestiging" : null)">
+                            @vestiging.Naam
+                        </th>
+                    }
+                    <th scope="col">Totaal</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var materiaal in materialen)
+                {
+                    <tr>
+                        <td>
+                            <strong>@materiaal.Naam</strong>
+                            <div class="muted">@materiaal.Omschrijving</div>
+                        </td>
+                        <td>@Service.CategorieNaam(materiaal.CategorieId)</td>
+                        @foreach (var vestiging in Service.Vestigingen)
+                        {
+                            <td class="@(vestigingId == vestiging.Id ? "gekozen-vestiging" : null)">
+                                @materiaal.VoorraadVoor(vestiging.Id)
+                            </td>
+                        }
+                        <td><strong>@materiaal.Totaal</strong></td>
+                        <td>
+                            <VoorraadBadge Aantal="@AantalVoorStatus(materiaal)" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    private string zoekterm = string.Empty;
+    private int categorieId;
+    private int vestigingId;
+    private List<Materiaal> materialen = [];
+
+    private int AantalLaag => Service.Materialen.Count(m => m.Totaal is > 0 and <= 2);
+
+    private int AantalNietBeschikbaar => Service.Materialen.Count(m => m.Totaal == 0);
+
+    protected override void OnInitialized() => Filter();
+
+    private void Filter()
+    {
+        materialen = Service.Zoek(zoekterm, categorieId, vestigingId).ToList();
+    }
+
+    private int AantalVoorStatus(Materiaal materiaal) =>
+        vestigingId == 0 ? materiaal.Totaal : materiaal.VoorraadVoor(vestigingId);
+
+    private void WisFilters()
+    {
+        zoekterm = string.Empty;
+        categorieId = 0;
+        vestigingId = 0;
+        Filter();
+    }
+}

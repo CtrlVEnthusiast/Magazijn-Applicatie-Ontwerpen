@@ -1,0 +1,257 @@
+@page "/uitlenen"
+@rendermode InteractiveWebAssembly
+@inject MagazijnService Service
+
+<PageTitle>Materiaal lenen of reserveren</PageTitle>
+
+<PaginaKop Titel="Materiaal lenen of reserveren"
+           Ondertitel="Zoek een materiaal, kies een vestiging en vraag het aan.">
+    <a class="btn btn-outline-secondary" href="magazijn">Terug naar overzicht</a>
+</PaginaKop>
+
+@if (verzonden is not null)
+{
+    <section class="bevestiging" role="status">
+        <h2>Aanvraag verstuurd</h2>
+        <p>
+            <strong>@verzonden.Naam</strong>, je
+            @(verzonden.Soort == AanvraagSoort.Lenen ? "aanvraag om te lenen" : "reservering")
+            is geregistreerd.
+        </p>
+
+        <dl class="bevestiging-details">
+            <dt>Materiaal</dt>
+            <dd>@Service.Materiaal(verzonden.MateriaalId)?.Naam</dd>
+            <dt>Vestiging</dt>
+            <dd>@Service.VestigingNaam(verzonden.VestigingId)</dd>
+            <dt>Periode</dt>
+            <dd>@verzonden.Vanaf.ToString("dd-MM-yyyy") tot @verzonden.Terugbrengdatum.ToString("dd-MM-yyyy")</dd>
+            <dt>Soort</dt>
+            <dd>@(verzonden.Soort == AanvraagSoort.Lenen ? "Lenen" : "Reserveren")</dd>
+        </dl>
+
+        <p class="muted">
+            De magazijnier bevestigt de uitgifte. Bij reserveren word je op de wachtlijst geplaatst
+            als het materiaal niet beschikbaar is.
+        </p>
+
+        <button class="btn btn-primary" type="button" @onclick="NieuweAanvraag">Nog een aanvraag</button>
+    </section>
+}
+else
+{
+    <div class="uitleen-layout">
+        <section class="materiaal-kiezer">
+            <h2>1. Kies een materiaal</h2>
+
+            <div class="kiezer-filters">
+                <input class="form-control" type="search" placeholder="Zoek op naam..."
+                       @bind="zoekterm" @bind:event="oninput" @bind:after="Filter" />
+                <select class="form-select" @bind="categorieId" @bind:after="Filter">
+                    <option value="0">Alle categorieën</option>
+                    @foreach (var categorie in Service.Categorieen)
+                    {
+                        <option value="@categorie.Id">@categorie.Naam</option>
+                    }
+                </select>
+            </div>
+
+            <div class="materiaal-lijst" role="list">
+                @foreach (var materiaal in materialen)
+                {
+                    <button type="button"
+                            class="materiaal-optie @(form.MateriaalId == materiaal.Id ? "geselecteerd" : null)"
+                            aria-pressed="@(form.MateriaalId == materiaal.Id)"
+                            @onclick="() => KiesMateriaal(materiaal)">
+                        <span class="materiaal-naam">@materiaal.Naam</span>
+                        <span class="materiaal-meta">@Service.CategorieNaam(materiaal.CategorieId)</span>
+                        <VoorraadBadge Aantal="@materiaal.VoorraadVoor(form.VestigingId)" />
+                    </button>
+                }
+
+                @if (materialen.Count == 0)
+                {
+                    <p class="leeg-melding">Geen materialen gevonden.</p>
+                }
+            </div>
+        </section>
+
+        <section class="aanvraag-formulier">
+            <h2>2. Jouw aanvraag</h2>
+
+            <EditForm Model="form" OnSubmit="Verstuur" FormName="uitleenformulier">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                @if (fout is not null)
+                {
+                    <div class="alert alert-danger" role="alert">@fout</div>
+                }
+
+                <div class="form-grid">
+                    <label>
+                        Naam
+                        <InputText class="form-control" @bind-Value="form.Naam" />
+                    </label>
+
+                    <label>
+                        E-mail
+                        <InputText class="form-control" type="email" @bind-Value="form.Email" />
+                    </label>
+
+                    <label>
+                        Vestiging
+                        <InputSelect class="form-select" @bind-Value="form.VestigingId">
+                            @foreach (var vestiging in Service.Vestigingen)
+                            {
+                                <option value="@vestiging.Id">@vestiging.Naam</option>
+                            }
+                        </InputSelect>
+                    </label>
+
+                    <label>
+                        Soort
+                        <InputSelect class="form-select" @bind-Value="form.Soort">
+                            <option value="@AanvraagSoort.Lenen">Lenen</option>
+                            <option value="@AanvraagSoort.Reserveren">Reserveren</option>
+                        </InputSelect>
+                    </label>
+
+                    <label>
+                        Vanaf
+                        <InputDate class="form-control" @bind-Value="form.Vanaf" />
+                    </label>
+
+                    <label>
+                        Terugbrengdatum
+                        <InputDate class="form-control" @bind-Value="form.Terugbrengdatum" />
+                    </label>
+                </div>
+
+                <label class="opmerking-veld">
+                    Opmerking
+                    <InputTextArea class="form-control" rows="3" @bind-Value="form.Opmerking" />
+                </label>
+
+                @if (GekozenMateriaal is not null)
+                {
+                    <div class="gekozen-materiaal">
+                        <div>
+                            <strong>@GekozenMateriaal.Naam</strong>
+                            <span class="muted">@Service.CategorieNaam(GekozenMateriaal.CategorieId)</span>
+                        </div>
+                        <VoorraadBadge Aantal="@GekozenMateriaal.VoorraadVoor(form.VestigingId)" />
+                    </div>
+                }
+                else
+                {
+                    <p class="muted">Kies links een materiaal om verder te gaan.</p>
+                }
+
+                @if (GekozenMateriaal is not null
+                     && form.Soort == AanvraagSoort.Lenen
+                     && GekozenMateriaal.VoorraadVoor(form.VestigingId) <= 0)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        Dit materiaal is niet op voorraad op deze vestiging. Kies een andere vestiging
+                        of kies voor reserveren.
+                    </div>
+                }
+
+                <button class="btn btn-primary" type="submit" disabled="@(!KanVersturen)">
+                    Aanvraag versturen
+                </button>
+            </EditForm>
+        </section>
+    </div>
+
+    @if (Service.Aanvragen.Count > 0)
+    {
+        <section class="laatste-aanvragen">
+            <h2>Laatste aanvragen</h2>
+            <ul>
+                @foreach (var aanvraag in Service.Aanvragen.OrderByDescending(a => a.Aangemaakt).Take(5))
+                {
+                    <li>
+                        <strong>@Service.Materiaal(aanvraag.MateriaalId)?.Naam</strong>
+                        <span class="muted">
+                            @aanvraag.Naam · @Service.VestigingNaam(aanvraag.VestigingId) ·
+                            @aanvraag.Vanaf.ToString("dd-MM") tot @aanvraag.Terugbrengdatum.ToString("dd-MM")
+                        </span>
+                        <span class="aanvraag-soort">@aanvraag.Soort</span>
+                    </li>
+                }
+            </ul>
+        </section>
+    }
+}
+
+@code {
+    private UitleenFormulier form = new();
+    private Aanvraag? verzonden;
+    private string? fout;
+    private string zoekterm = string.Empty;
+    private int categorieId;
+    private List<Materiaal> materialen = [];
+
+    private Materiaal? GekozenMateriaal => Service.Materiaal(form.MateriaalId);
+
+    private bool KanVersturen =>
+        GekozenMateriaal is not null &&
+        (form.Soort == AanvraagSoort.Reserveren ||
+         GekozenMateriaal.VoorraadVoor(form.VestigingId) > 0);
+
+    protected override void OnInitialized() => Filter();
+
+    private void Filter()
+    {
+        materialen = Service.Zoek(zoekterm, categorieId).ToList();
+    }
+
+    private void KiesMateriaal(Materiaal materiaal)
+    {
+        form.MateriaalId = materiaal.Id;
+        fout = null;
+    }
+
+    private void Verstuur(EditContext context)
+    {
+        fout = null;
+
+        if (!context.Validate())
+        {
+            return;
+        }
+
+        if (form.MateriaalId == 0)
+        {
+            fout = "Kies eerst een materiaal.";
+            return;
+        }
+
+        if (form.Terugbrengdatum.Date < form.Vanaf.Date)
+        {
+            fout = "De terugbrengdatum mag niet voor de startdatum liggen.";
+            return;
+        }
+
+        try
+        {
+            verzonden = Service.PlaatsAanvraag(form);
+        }
+        catch (InvalidOperationException ex)
+        {
+            fout = ex.Message;
+        }
+    }
+
+    private void NieuweAanvraag()
+    {
+        form = new UitleenFormulier();
+        verzonden = null;
+        fout = null;
+        zoekterm = string.Empty;
+        categorieId = 0;
+        Filter();
+    }
+}
