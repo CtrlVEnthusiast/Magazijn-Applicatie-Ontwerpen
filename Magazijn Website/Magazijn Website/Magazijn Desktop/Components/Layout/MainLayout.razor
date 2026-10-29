@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+<div class="container-fluid px-4 py-3">
+    <header class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
+        <div>
+            <div class="fs-4 fw-bold text-primary">Magazijn</div>
+            <div class="text-secondary">Voorraad en aanvragen</div>
+        </div>
+        <nav class="nav nav-pills" aria-label="Hoofdnavigatie">
+            <NavLink class="nav-link" href="magazijn">Voorraad</NavLink>
+            <NavLink class="nav-link" href="uitlenen">Lenen of reserveren</NavLink>
+        </nav>
+    </header>
+
+    <main>
+        @Body
+    </main>
+</div>
